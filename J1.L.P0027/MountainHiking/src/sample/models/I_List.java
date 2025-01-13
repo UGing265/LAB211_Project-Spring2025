@@ -5,7 +5,7 @@
 package sample.models;
 
 import java.util.List;
-public interface I_LIST {
+public interface I_List {
     boolean create();
 //    boolean update(String id);
 //    void display();

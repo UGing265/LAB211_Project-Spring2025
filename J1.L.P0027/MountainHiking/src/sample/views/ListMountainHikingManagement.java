@@ -1,28 +1,25 @@
 package sample.views;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Hoa Doan
- */
-public class ListMountainHikingManagement {
+import sample.controllers.Menu;
+import sample.models.I_Menu;
 
+
+
+public class ListMountainHikingManagement {
     public static void main(String args[]) {
-//        I_Menu menu = new Menu();
-//        menu.addItem("1. Add new product");
-//        menu.addItem("2. Remove a product");
-//        menu.addItem("3. Update a product");
-//        menu.addItem("4. Sort list");
-//        menu.addItem("5. abc");
-//        menu.addItem("6. def");
-//        menu.addItem("7: Quit");
-//        int choice;
-//        boolean cont = true;
-//        I_List list = new ProductList();
+        I_Menu menu = new Menu();
+        menu.addItem("1. New Registration");
+        menu.addItem("2. Update Registration Information");
+        menu.addItem("3. Display Registered List");
+        menu.addItem("4. Delete Registration Information");
+        menu.addItem("5. Search Participants by Name");
+        menu.addItem("6. Filter Data by Campus");
+        menu.addItem("7. Statistics by Location");
+        menu.addItem("8. Save Data to File");
+        menu.addItem("9. Exit");
+        int choice;
+        boolean cont = true;
+        I_List list = new ProductList();
 //        do {
 //            menu.showMenu();
 //            choice = menu.getChoice();

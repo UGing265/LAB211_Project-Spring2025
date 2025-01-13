@@ -5,12 +5,12 @@
 package sample.controllers;
 
 import java.util.ArrayList;
-import sample.models.I_LIST;
 import sample.models.Student;
 import sample.models.StudentMountain;
 import sample.utils.Utils;
+import sample.models.I_List;
 
-public class MountainHikingList extends ArrayList<StudentMountain> implements I_LIST {
+public class MountainHikingList extends ArrayList<StudentMountain> implements I_List {
 
     @Override
     public boolean create() {
@@ -35,7 +35,29 @@ public class MountainHikingList extends ArrayList<StudentMountain> implements I_
 
                 }
             } while (continous);
-        } catch (Exception e) {}
+
+            continous = true;
+            do {//098: Vettel
+                //090 và 091: vina
+
+                int phone = Utils.getInt("input your number phone", 0, 10);
+                String phoneStr = String.valueOf(phone);
+                String twoNumberFirst = phoneStr.substring(0, 1);
+                if (twoNumberFirst.matches("09")) {
+                    continous = false;
+                }
+            } while (continous);
+
+            continous = true;
+            do {
+                String email = Utils.getString("input your email");
+                if (Utils.isVaildEmail(email)) {
+                    continous = false;
+                }
+            } while (continous);
+
+        } catch (Exception e) {
+        }
         return check;
     }
 
