@@ -6,6 +6,7 @@ package sample.utils;
 
 import java.util.Scanner;
 
+
 /**
  *
  * @author HP
@@ -94,6 +95,18 @@ public class Utils {
         } while (check || number > max || number < min);
         return number;
     }
+    
+      public static boolean isVaildEmail(String email) {
+          String emailRegrex = "[\\w.+%-]+@[\\w.-]+\\.[a-zA-Z]{2,7}$";
+          boolean check = false;
+          if(email == null || email.isEmpty()){
+          }  
+          if(email.matches(emailRegrex)){
+              check = true;
+          }
+          return check;
+      }
+    
 
     public static boolean confirmYesNo(String welcome) {
         boolean result = false;

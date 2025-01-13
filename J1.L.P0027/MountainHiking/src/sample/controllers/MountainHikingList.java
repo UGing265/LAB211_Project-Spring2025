@@ -5,8 +5,6 @@
 package sample.controllers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import sample.models.I_LIST;
 import sample.models.Student;
 import sample.models.StudentMountain;
@@ -25,18 +23,18 @@ public class MountainHikingList extends ArrayList<StudentMountain> implements I_
                 if (Utils.valiationStudentID(id)) {
                     student.setId(id);
                     continous = false;
-                }while(continous);
-                continous = true;
-                
-                do{
-                    String name = Utils.getString("input Student Name:");
-                    if((name.length() > 2 && name.length()< 20)){
-                        student.setName(name);
-                        continous = false;
-                       
-                    }
                 }
-            }while(continous); 
+            } while (continous);
+            continous = true;
+
+            do {
+                String name = Utils.getString("input Student Name:");
+                if ((name.length() > 2 && name.length() < 20)) {
+                    student.setName(name);
+                    continous = false;
+
+                }
+            } while (continous);
         } catch (Exception e) {}
         return check;
     }
