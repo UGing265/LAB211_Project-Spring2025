@@ -1,33 +1,52 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package sample.models;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  *
- * @author HP
+ * @author hoadoan
  */
-public class StudentMountain {
-    private String studentID;
+public class StudentMountain implements Serializable{
+    private Student student;
     private String mountainCode;
     private double fee;
-    
-    public StudentMountain(){}
 
-    public StudentMountain(String studentID, String mountainCode, double fee) {
-        this.studentID = studentID;
+    public StudentMountain() {
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Student st= (Student)obj;
+        return this.getStudent().getId().equals(st.getId());
+    }
+
+
+
+    public StudentMountain(Student student) {
+        this.student = student;
+    }
+
+    public StudentMountain(Student student, String mountainCode, double fee) {
+        this.student = student;
         this.mountainCode = mountainCode;
         this.fee = fee;
     }
 
-    public String getStudentID() {
-        return studentID;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
+    public void setStudent(Student student) {
+        this.student = student;
     }
+
+    
 
     public String getMountainCode() {
         return mountainCode;
@@ -44,6 +63,10 @@ public class StudentMountain {
     public void setFee(double fee) {
         this.fee = fee;
     }
-    
+
+    @Override
+    public String toString() {
+        return "StudentMountain{" + "student=" + student.toString() + ", mountainCode=" + mountainCode + ", fee=" + fee + '}';
+    }
     
 }

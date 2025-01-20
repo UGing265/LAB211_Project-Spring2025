@@ -1,20 +1,37 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package sample.models;
 
+import java.io.Serializable;
+import sample.utils.Utils;
+
 /**
  *
- * @author HP
+ * @author hoadoan
  */
-public class Student {
+public class Student implements Serializable {
+
     private String id;
     private String name;
     private String phone;
     private String email;
 
-    public Student(){}
+    public Student() {
+    }
+
+    public Student(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Student st = (Student) obj;
+        return this.getId().equals(st.getId());
+    }
+
     public Student(String id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
@@ -53,5 +70,29 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" + "id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + '}';
+    }
+
+    public boolean createID() {
+        boolean check = false;
+        String id = "";
+        try {
+            boolean countinous = true;
+            do {
+                id = Utils.getString("Input Student ID:");
+                if (Utils.validStudentID(id)) {
+                    this.setId(id);
+                    countinous = false;
+                }
+            } while (countinous);
+        } catch (Exception e) {
+        }
+
+        return check;
+    }
     
+
 }

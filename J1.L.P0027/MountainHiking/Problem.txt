@@ -1,0 +1,2 @@
+1. Đọc file ghi file không đồng bộ
+2. Dự án quá lộn xộn không ra hồn sắp xếp file và logic tè le 

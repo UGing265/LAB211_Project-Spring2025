@@ -1,19 +1,24 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package sample.models;
 
-import java.util.List;
+//import java.util.List;
+
+/**
+ *
+ * @author hoadoan
+ */
 public interface I_List {
     boolean create();
-//    boolean update(String id);
-//    void display();
-//    boolean delete(String id);
-//    List<Object> search(String name);
-//    List<Object> filter(String name);
-//    List<Object> statistics();
-    // boolean save(String id);
-    
-  
+    boolean update(String value);
+    void display();
+    boolean delete(String value);
+    //List<Object> search(String value);
+    void search(String value);
+    //List<Object> filter(String value);
+    //List<Object> statistics();
+    boolean writeMountainHikingToFile(String path);
 }

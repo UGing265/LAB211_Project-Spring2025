@@ -1,37 +1,65 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package sample.utils;
 
 import java.util.Scanner;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
- * @author HP
+ * @author hd
  */
 public class Utils {
-    public static final int MIN=0;
-    public static final int MAX=3000;
-    // KIem tra ID phải có định dạng sau: 8 ký tự, ký tự đầu là mã vùng (SE, HE, CE, DE, QE), 6 kí tự cuối là số
-    public static boolean valiationStudentID(String id){
+
+    public static final int MIN = 0;
+    public static final int MAX = 3000;
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+//    kiểm tra id phải có định dạng sau: 8 ký tự, 2 ký tự đầu là mã vùng( SE, HE, DE, QE, CE ), 6 ký tự cuối là số
+
+    public static boolean validStudentID(String id) {
         boolean check = false;
-        try{
-            if(id.length() != 8){
+        try {
+            if (id.length() == 8) {
                 String campusCode = id.substring(0, 2);
-                String last6Digit = id.substring(2, 8);
-                if(campusCode.equals("SE") || campusCode.equals("HE") || campusCode.equals("CE") 
-                                    || campusCode.equals("DE") || campusCode.equals("QE")){
-                    int value = Integer.parseInt(last6Digit);
+                String last6Digits = id.substring(2, 8);
+                if (campusCode.equalsIgnoreCase("SE") || campusCode.equalsIgnoreCase("HE") || campusCode.equalsIgnoreCase("DE")
+                        || campusCode.equalsIgnoreCase("QE") || campusCode.equalsIgnoreCase("CE")) {
+                    Integer.parseInt(last6Digits);
                     check = true;
                 }
-            }     
-        }catch(Exception e){}
+            }
+        } catch (Exception e) {
+        }
         return check;
     }
-    
-    
+
+    public static boolean validPhone(String phone) {
+        boolean check = false;
+        try {
+            if (phone.length() == 10) {
+                Integer.parseInt(phone);
+                check = true;
+            }
+        } catch (Exception e) {
+        }
+        return check;
+    }
+
+//kiểm tra định dạng email
+    public static boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
     public static String getString(String welcome) {
         boolean check = true;
         String result = "";
@@ -48,7 +76,7 @@ public class Utils {
         return result;
     }
 
-    public static String getString(String welcome, String oldData) {
+    public static String updateString(String welcome, String oldData) {
         String result = oldData;
         Scanner sc = new Scanner(System.in);
         System.out.print(welcome);
@@ -75,7 +103,7 @@ public class Utils {
         return number;
     }
 
-    public static int getInt(String welcome, int min, int max, int oldData) {
+    public static int updateInt(String welcome, int min, int max, int oldData) {
         boolean check = true;
         int number = oldData;
         do {
@@ -95,18 +123,6 @@ public class Utils {
         } while (check || number > max || number < min);
         return number;
     }
-    
-      public static boolean isVaildEmail(String email) {
-          String emailRegrex = "[\\w.+%-]+@[\\w.-]+\\.[a-zA-Z]{2,7}$";
-          boolean check = false;
-          if(email == null || email.isEmpty()){
-          }  
-          if(email.matches(emailRegrex)){
-              check = true;
-          }
-          return check;
-      }
-    
 
     public static boolean confirmYesNo(String welcome) {
         boolean result = false;
