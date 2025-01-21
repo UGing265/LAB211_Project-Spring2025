@@ -200,7 +200,7 @@ public class MountainHikingList extends ArrayList<StudentMountain> implements I_
                 boolean continueUpdating = true;
                 while (continueUpdating) {
                     // Prompt user for new student details
-                    String newName = Utils.getString("Enter new name (Leave empty to skip):");
+                    String newName = Utils.updateString("Enter new name (Leave empty to skip):",studentMountainUpdate.getStudent().getName());
                     if (!newName.trim().isEmpty()) {
                         studentMountainUpdate.getStudent().setName(newName);
                     }
