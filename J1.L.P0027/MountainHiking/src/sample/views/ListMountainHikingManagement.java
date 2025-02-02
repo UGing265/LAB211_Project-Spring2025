@@ -1,11 +1,15 @@
+
 package sample.views;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import sample.controllers.Menu;
 import sample.controllers.MountainHikingList;
 import sample.models.I_List;
 import sample.models.I_Menu;
+import sample.models.Mountain;
 import sample.models.Student;
 import sample.models.StudentMountain;
 import sample.utils.Utils;
@@ -22,19 +26,20 @@ import sample.utils.Utils;
 public class ListMountainHikingManagement {
 
     public static void App() {
-        String fileName = "MountainHiking.bin";
-        MountainHikingList mtl=  new MountainHikingList();
-     
-//            ArrayList<StudentMountain> StudentM = mtl.readStudentMountainFromFile(fileName);
-//            for(StudentMountain sm:StudentM){
-//                System.out.println(sm);}
-             try {
-            mtl.readStudentMountainFromFile(fileName); // Read mountain data
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
-        
-        
+//-----------------------------------------------------------------
+//        String fileName = "MountainHiking.bin";
+//        MountainHikingList mtl=  new MountainHikingList();
+//     
+////            ArrayList<StudentMountain> StudentM = mtl.readStudentMountainFromFile(fileName);
+////            for(StudentMountain sm:StudentM){
+////                System.out.println(sm);}
+//             try {
+//            mtl.readStudentMountainFromFile(fileName); // Read mountain data
+//        } catch (IOException e) {
+//            System.out.println("Error reading file: " + e.getMessage());
+//        }
+//        
+//        
 //        try {
 //            File file= new File(fileName);
 //            boolean check= file.exists();
@@ -45,6 +50,49 @@ public class ListMountainHikingManagement {
 //            System.out.println(lm.toString());
 //        } catch (Exception e) {
 //        }
+//        ----------------------------------------------------
+        
+        
+        String fileName = "MountainHiking.bin";
+        MountainHikingList mtl = new MountainHikingList();
+
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                System.out.println("File created: " + fileName);
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
+
+        // Read StudentMountain objects
+        try {
+            if (file.length() > 0) {  // Ensure the file is not empty before reading
+                List<StudentMountain> studentM = mtl.readStudentMountainFromFile(fileName);
+                for (StudentMountain sm : studentM) {
+                    System.out.println(sm);
+                    
+                }
+            } else {
+                System.out.println("File exists but is empty.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading StudentMountain data: " + e.getMessage());
+        }
+
+        // Read Mountain objects
+//        try {
+//            if (file.length() > 0) {
+//                List<Mountain> lm = mtl.readMountainFromFile(fileName);
+//                System.out.println("Mountains: " + lm);
+//            }
+//        } catch (Exception e) {}
+//        
+//        
+        
+        
         I_Menu menu = new Menu();
         menu.addItem("1. New Registration");
         menu.addItem("2. Update Information");
@@ -68,7 +116,7 @@ public class ListMountainHikingManagement {
                 case 2:
                     list.update(Utils.getString("Input your Student Code: "));
                     break;
-                case 3:
+                case 3:              
                    list.display();
                     break;
                 case 4:
@@ -78,7 +126,11 @@ public class ListMountainHikingManagement {
                     list.search(Utils.getString("lets go: "));
                     break;
                 case 6:
-                   //list.writeMountainHikingToFile(fileName);
+                    String code = Utils.getCampus("Input Campus Code: ");
+                    List<Object> hey =  list.filter(code);//fix value
+                    for(Object d : hey){
+                        System.out.println(d);
+                    }
                     break;
                 case 7:
                     //list.writeMountainHikingToFile(fileName);

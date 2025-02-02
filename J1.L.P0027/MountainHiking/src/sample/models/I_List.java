@@ -7,6 +7,9 @@ package sample.models;
 
 //import java.util.List;
 
+import java.util.List;
+
+
 /**
  *
  * @author hoadoan
@@ -18,7 +21,7 @@ public interface I_List {
     boolean delete(String value);
     //List<Object> search(String value);
     void search(String value);
-    //List<Object> filter(String value);
-    //List<Object> statistics();
+    List<Object> filter(String value);//need string value
+    List<Object> statistics();
     boolean writeMountainHikingToFile(String path);
 }

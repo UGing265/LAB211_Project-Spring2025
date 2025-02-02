@@ -59,7 +59,19 @@ public class Utils {
 
         return matcher.matches();
     }
-
+    public static boolean isVaildIdCampus(String id){
+        boolean check = false;
+        try{
+           String campusCode = id.substring(0,2);//đọc kĩ đề
+            if(campusCode.length() == 2 && (campusCode.equalsIgnoreCase("CE") || campusCode.equalsIgnoreCase("DE") 
+                    || campusCode.equalsIgnoreCase("HE") || campusCode.equalsIgnoreCase("SE") || campusCode.equalsIgnoreCase("QE"))){
+                    check = true;
+        } 
+        }catch(Exception e){}
+        
+        return check;
+        }
+    
     public static String getString(String welcome) {
         boolean check = true;
         String result = "";
@@ -73,6 +85,22 @@ public class Utils {
                 check = false;
             }
         } while (check);
+        return result;
+    }
+    
+    public static String getCampus(String welcome){
+        boolean check = true;
+        String result = "";
+        do{
+            Scanner sc = new Scanner(System.in);
+            System.out.print(welcome);
+            result = sc.nextLine();
+            if(result.isEmpty() || !isVaildIdCampus(result)){
+                System.out.println("No students have registered under this campus");
+            } else {
+                check = false;
+            }
+        } while(check);
         return result;
     }
 

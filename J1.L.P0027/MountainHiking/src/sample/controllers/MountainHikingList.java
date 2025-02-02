@@ -4,26 +4,40 @@
  * and open the template in the editor.
  */
 package sample.controllers;
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import sample.models.I_List;
 import sample.models.Mountain;
 import sample.models.Student;
 import sample.models.StudentMountain;
 import sample.utils.Utils;
 
-/**
- *
- * @author hoadoan
- */
-public class MountainHikingList extends ArrayList<StudentMountain> implements I_List {
-
+public final class MountainHikingList extends ArrayList<StudentMountain> implements I_List {
     public String path = "moutainList.bin";
+ 
+
+    // Constructor to initialize the list
+   public MountainHikingList() {
+    try {
+        File file = new File("MountainHiking.bin");
+        if (file.exists() && file.length() > 0) { // Ensure the file is not empty
+            ArrayList<StudentMountain> studentList = readStudentMountainFromFile("MountainHiking.bin");
+            if (studentList != null) {
+                this.addAll(studentList);
+            }
+        }
+    } catch (IOException e) {
+        System.out.println("Error loading data from file: " + e.getMessage());
+    }
+}
+
+    
 
     @Override
     public boolean create() {
@@ -174,11 +188,17 @@ public class MountainHikingList extends ArrayList<StudentMountain> implements I_
         }
         return list;
     }
-
+    
+    
+    
     @Override
     public void display() {
-        for (StudentMountain obj : this) {
-            System.out.println(obj.toString());
+        if (this != null && !this.isEmpty()) {
+            for (StudentMountain obj : this) {
+                System.out.println(obj.toString());
+        }
+       }else {
+            System.out.println("No data to display.");
         }
     }
 
@@ -205,12 +225,12 @@ public class MountainHikingList extends ArrayList<StudentMountain> implements I_
                         studentMountainUpdate.getStudent().setName(newName);
                     }
 
-                    String newPhone = Utils.getString("Enter new phone (Leave empty to skip):");
+                    String newPhone = Utils.updateString("Enter new phone (Leave empty to skip):",studentMountainUpdate.getStudent().getPhone());
                     if (!newPhone.trim().isEmpty() && Utils.validPhone(newPhone)) {
                         studentMountainUpdate.getStudent().setPhone(newPhone);
                     }
 
-                    String newEmail = Utils.getString("Enter new email (Leave empty to skip):");
+                    String newEmail = Utils.updateString("Enter new email (Leave empty to skip):",studentMountainUpdate.getStudent().getEmail());
                     if (!newEmail.trim().isEmpty() && Utils.isValidEmail(newEmail)) {
                         studentMountainUpdate.getStudent().setEmail(newEmail);
                     }
@@ -302,13 +322,28 @@ public class MountainHikingList extends ArrayList<StudentMountain> implements I_
         }
     }
 
-    //@Override
-    public Object filter(String value) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    @Override
+    public List<Object> filter(String value) {
+        List<Object> filteredList = new ArrayList();
+        
+        try{     
+            for(StudentMountain student : this){
+               if (!student.getStudent().getId().isEmpty() && student.getStudent().getId().toUpperCase().startsWith(value.toUpperCase())) { 
+                    filteredList.add(student);   
+                    }   
+            }
+                
+            
+            
+        }catch(Exception e){}
+        
+        return filteredList;    
+       
+        
     }
 
-    //@Override
-    public Object statistics() {
+    @Override
+    public List<Object> statistics() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
