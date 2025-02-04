@@ -10,9 +10,11 @@ import sample.controllers.MountainHikingList;
 import sample.models.I_List;
 import sample.models.I_Menu;
 import sample.models.Mountain;
+import sample.models.MountainStatistics;
 import sample.models.Student;
 import sample.models.StudentMountain;
 import sample.utils.Utils;
+import static sample.views.PrintMenu.printStatisticsTable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -133,7 +135,18 @@ public class ListMountainHikingManagement {
                     }
                     break;
                 case 7:
-                    //list.writeMountainHikingToFile(fileName);
+//                    List<Object> stats = list.statistics();
+//                    List<MountainStatistics> mountainStatsList = stats.stream()
+//                    .map(obj -> (MountainStatistics) obj)
+//                    .toList();
+
+                    // Print table
+                    PrintMenu.printStatisticsTable();
+                    List<Object> alo =  list.statistics();
+                    
+                    for(Object d : alo){
+                        System.out.println(d);
+                    }
                     break;
                 case 8:
                     list.writeMountainHikingToFile(fileName);

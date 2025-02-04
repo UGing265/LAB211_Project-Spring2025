@@ -11,9 +11,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import sample.models.I_List;
 import sample.models.Mountain;
+import sample.models.MountainStatistics;
 import sample.models.Student;
 import sample.models.StudentMountain;
 import sample.utils.Utils;
@@ -344,7 +347,24 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
 
     @Override
     public List<Object> statistics() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Map<String, MountainStatistics> statsMap = new HashMap<>();
+        
+        for(StudentMountain student : this){
+            String peak = student.getMountainCode();
+            double fee = student.getFee();
+        
+        
+        statsMap.putIfAbsent(peak, new MountainStatistics(peak, 0, 0.0));
+        MountainStatistics currentStats = statsMap.get(peak);
+        
+        currentStats.incrementCount();
+        currentStats.addFee(fee);
+        
+        
+        }
+        List<Object> result = new ArrayList<>(statsMap.values());
+        return result;
+        
     }
 
 }
