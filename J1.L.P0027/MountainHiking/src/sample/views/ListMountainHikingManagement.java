@@ -107,7 +107,8 @@ public class ListMountainHikingManagement {
         menu.addItem("9: Quit");
         int choice;
         boolean cont = true;
-        I_List list = new MountainHikingList();
+        I_List list = new MountainHikingList(); 
+              PrintMenu.setList(list);
         do {
             menu.showMenu();
             choice = menu.getChoice();
@@ -125,9 +126,12 @@ public class ListMountainHikingManagement {
                     list.delete(Utils.getString("Input your Student Code: "));
                     break;
                 case 5:
-                    list.search(Utils.getString("lets go: "));
+                    PrintMenu.printSearchTable();
+                    //3list.search(Utils.getString("Input Your Name: "));
                     break;
                 case 6:
+                    PrintMenu.printFilterTable();
+                    
                     String code = Utils.getCampus("Input Campus Code: ");
                     List<Object> hey =  list.filter(code);//fix value
                     for(Object d : hey){
@@ -149,7 +153,8 @@ public class ListMountainHikingManagement {
                     }
                     break;
                 case 8:
-                    list.writeMountainHikingToFile(fileName);
+                    //list.writeMountainHikingToFile(fileName);
+                    PrintMenu.printSaveFile(fileName);
                     break;
                 case 9:
                     cont = menu.confirmYesNo("Do you want to quit?(Y/N)");

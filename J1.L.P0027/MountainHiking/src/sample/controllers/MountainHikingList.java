@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sample.controllers;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,25 +23,23 @@ import sample.models.StudentMountain;
 import sample.utils.Utils;
 
 public final class MountainHikingList extends ArrayList<StudentMountain> implements I_List {
+
     public String path = "moutainList.bin";
- 
 
     // Constructor to initialize the list
-   public MountainHikingList() {
-    try {
-        File file = new File("MountainHiking.bin");
-        if (file.exists() && file.length() > 0) { // Ensure the file is not empty
-            ArrayList<StudentMountain> studentList = readStudentMountainFromFile("MountainHiking.bin");
-            if (studentList != null) {
-                this.addAll(studentList);
+    public MountainHikingList() {
+        try {
+            File file = new File("MountainHiking.bin");
+            if (file.exists() && file.length() > 0) { // Ensure the file is not empty
+                ArrayList<StudentMountain> studentList = readStudentMountainFromFile("MountainHiking.bin");
+                if (studentList != null) {
+                    this.addAll(studentList);
+                }
             }
+        } catch (IOException e) {
+            System.out.println("Error loading data from file: " + e.getMessage());
         }
-    } catch (IOException e) {
-        System.out.println("Error loading data from file: " + e.getMessage());
     }
-}
-
-    
 
     @Override
     public boolean create() {
@@ -115,8 +114,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
             this.add(stm);
             check = true;
 
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
         return check;
     }
 
@@ -191,16 +189,14 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
         }
         return list;
     }
-    
-    
-    
+
     @Override
     public void display() {
         if (this != null && !this.isEmpty()) {
             for (StudentMountain obj : this) {
                 System.out.println(obj.toString());
-        }
-       }else {
+            }
+        } else {
             System.out.println("No data to display.");
         }
     }
@@ -223,17 +219,17 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
                 boolean continueUpdating = true;
                 while (continueUpdating) {
                     // Prompt user for new student details
-                    String newName = Utils.updateString("Enter new name (Leave empty to skip):",studentMountainUpdate.getStudent().getName());
+                    String newName = Utils.updateString("Enter new name (Leave empty to skip):", studentMountainUpdate.getStudent().getName());
                     if (!newName.trim().isEmpty()) {
                         studentMountainUpdate.getStudent().setName(newName);
                     }
 
-                    String newPhone = Utils.updateString("Enter new phone (Leave empty to skip):",studentMountainUpdate.getStudent().getPhone());
+                    String newPhone = Utils.updateString("Enter new phone (Leave empty to skip):", studentMountainUpdate.getStudent().getPhone());
                     if (!newPhone.trim().isEmpty() && Utils.validPhone(newPhone)) {
                         studentMountainUpdate.getStudent().setPhone(newPhone);
                     }
 
-                    String newEmail = Utils.updateString("Enter new email (Leave empty to skip):",studentMountainUpdate.getStudent().getEmail());
+                    String newEmail = Utils.updateString("Enter new email (Leave empty to skip):", studentMountainUpdate.getStudent().getEmail());
                     if (!newEmail.trim().isEmpty() && Utils.isValidEmail(newEmail)) {
                         studentMountainUpdate.getStudent().setEmail(newEmail);
                     }
@@ -244,47 +240,43 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
                 }
 
                 // Save updated list to file
-               // writeMountainHikingToFile(path);
+                // writeMountainHikingToFile(path);
                 System.out.println("Student information updated successfully!");
                 checked = true;
             } else {
                 System.out.println("Student with ID " + value + " not found.");
             }
 
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
         return checked;
     }
 
     @Override
     public boolean delete(String value) {
         boolean checked = false;
-        try{
+        try {
             StudentMountain studentToDelete = null;
-            for(StudentMountain SM: this){
-                if(SM.getStudent().getId().equalsIgnoreCase(value)){
+            for (StudentMountain SM : this) {
+                if (SM.getStudent().getId().equalsIgnoreCase(value)) {
                     studentToDelete = SM;
                     break;
                 }
             }
-             // If the student is found
+            // If the student is found
             if (studentToDelete != null) {
-            // Remove the student from the list
-            this.remove(studentToDelete);
-            System.out.println("Student with ID " + value + " has been deleted.");
+                // Remove the student from the list
+                this.remove(studentToDelete);
+                System.out.println("Student with ID " + value + " has been deleted.");
 
-            // Save the updated list back to the file
-           // writeMountainHikingToFile(path);
-            checked = true;
-        } else {
-            System.out.println("Student with ID " + value + " not found.");
-        }
-            
-            
-        }catch(Exception e){}
-        
-        
-        
+                // Save the updated list back to the file
+                // writeMountainHikingToFile(path);
+                checked = true;
+            } else {
+                System.out.println("Student with ID " + value + " not found.");
+            }
+
+        } catch (Exception e) {}
+
         return checked;
     }
 
@@ -299,72 +291,68 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
 //        }
 //        return matchingStudents;
 //    }
-    public void search(String value) {
+    public List<Object> search(String value) {
+        List<Object> searchList = new ArrayList();
         boolean checked = false;
-
-        String searchValue = value.toLowerCase().trim();
-
-        for (StudentMountain student : this) {
-
-            String[] nameParts = student.getStudent().getName().toLowerCase().split("\\s+");
-
-            boolean matches = false;
-            for (String part : nameParts) {
-                if (part.equals(searchValue)) {
-                    matches = true;
-                    break;
+        try {
+            String searchValue = value.toLowerCase().trim();
+            for (StudentMountain student : this) {
+                
+                String[] nameParts = student.getStudent().getName().toLowerCase().split("\\s+");
+                boolean matches = false;
+                
+                for (String part : nameParts) {
+                    if (part.equalsIgnoreCase(searchValue)) {
+                        matches = true;
+                        break;
+                    }
+                }
+                if (matches) {
+                    searchList.add(student);
+                    checked = true;
                 }
             }
-            if (matches) {
-                System.out.println(student);
-                checked = true;
+            if (!checked) {
+                System.out.println("No one matches the search criteria!");
             }
-        }
-        if (!checked) {
-            System.out.println("No one matches the search criteria!");
-        }
+        } catch (Exception e) {}
+        return searchList;
     }
 
     @Override
     public List<Object> filter(String value) {
         List<Object> filteredList = new ArrayList();
-        
-        try{     
-            for(StudentMountain student : this){
-               if (!student.getStudent().getId().isEmpty() && student.getStudent().getId().toUpperCase().startsWith(value.toUpperCase())) { 
-                    filteredList.add(student);   
-                    }   
+
+        try {
+            for (StudentMountain student : this) {
+                if (!student.getStudent().getId().isEmpty() && student.getStudent().getId().toUpperCase().startsWith(value.toUpperCase())) {
+                    filteredList.add(student);
+                }
             }
-                
-            
-            
-        }catch(Exception e){}
-        
-        return filteredList;    
-       
-        
+        } catch (Exception e) {}
+
+        return filteredList;
+
     }
 
     @Override
     public List<Object> statistics() {
         Map<String, MountainStatistics> statsMap = new HashMap<>();
-        
-        for(StudentMountain student : this){
+
+        for (StudentMountain student : this) {
             String peak = student.getMountainCode();
             double fee = student.getFee();
-        
-        
-        statsMap.putIfAbsent(peak, new MountainStatistics(peak, 0, 0.0));
-        MountainStatistics currentStats = statsMap.get(peak);
-        
-        currentStats.incrementCount();
-        currentStats.addFee(fee);
-        
-        
+
+            statsMap.putIfAbsent(peak, new MountainStatistics(peak, 0, 0.0));
+            MountainStatistics currentStats = statsMap.get(peak);
+
+            currentStats.incrementCount();
+            currentStats.addFee(fee);
+
         }
         List<Object> result = new ArrayList<>(statsMap.values());
         return result;
-        
+
     }
 
 }

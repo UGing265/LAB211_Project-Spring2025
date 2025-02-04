@@ -20,7 +20,7 @@ public interface I_List {
     void display();
     boolean delete(String value);
     //List<Object> search(String value);
-    void search(String value);
+    List<Object> search(String value);
     List<Object> filter(String value);//need string value
     List<Object> statistics();
     boolean writeMountainHikingToFile(String path);
