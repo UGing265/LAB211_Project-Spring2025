@@ -21,11 +21,14 @@ public class StudentMountain implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Student st= (Student)obj;
-        return this.getStudent().getId().equals(st.getId());
-    }
+public boolean equals(Object obj) {
+    if (this == obj) return true;  // Same reference → Equal
+    if (obj == null || getClass() != obj.getClass()) return false;  // Different class → Not Equal
 
+    StudentMountain other = (StudentMountain) obj;  // Safe cast
+
+    return this.getStudent().getId().equalsIgnoreCase(other.getStudent().getId()); // Compare IDs
+}
 
 
     public StudentMountain(Student student) {

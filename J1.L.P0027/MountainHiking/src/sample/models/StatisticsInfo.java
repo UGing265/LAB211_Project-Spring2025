@@ -1,12 +1,12 @@
 
 package sample.models;
 
-public class MountainStatistics {
+public class StatisticsInfo {
     private String peakName;
     private int participantNum;
     private double totalCost;
 
-    public MountainStatistics(String peakName, int participantNum, double totalCost) {
+    public StatisticsInfo(String peakName, int participantNum, double totalCost) {
         this.peakName = peakName;
         this.participantNum = participantNum;
         this.totalCost = totalCost;

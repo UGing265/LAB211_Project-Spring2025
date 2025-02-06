@@ -11,7 +11,8 @@ package sample.controllers;
  */
 import java.util.ArrayList;
 import sample.models.I_Menu;
-import sample.utils.Utils;
+import sample.utils.Inputs;
+import sample.utils.Validation;
 
 public class Menu extends ArrayList<String> implements I_Menu {
 
@@ -35,13 +36,13 @@ public class Menu extends ArrayList<String> implements I_Menu {
     @Override
     public boolean confirmYesNo(String welcome) {
         boolean result= false;
-        result= Utils.confirmYesNo(welcome);
+        result= Inputs.confirmYesNo(welcome);
         return result;
     }
 
     @Override
     public int getChoice() {
-        return Utils.getInt("Input your choice:", 1, this.size());
+        return Inputs.getInt("Input your choice:", 1, this.size());
     }
 
 }

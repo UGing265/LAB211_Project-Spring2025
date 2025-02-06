@@ -10,10 +10,11 @@ import sample.controllers.MountainHikingList;
 import sample.models.I_List;
 import sample.models.I_Menu;
 import sample.models.Mountain;
-import sample.models.MountainStatistics;
+import sample.models.StatisticsInfo;
 import sample.models.Student;
 import sample.models.StudentMountain;
-import sample.utils.Utils;
+import sample.utils.Inputs;
+import sample.utils.Validation;
 import static sample.views.PrintMenu.printStatisticsTable;
 
 /*
@@ -117,52 +118,61 @@ public class ListMountainHikingManagement {
                     list.create();
                     break;
                 case 2:
-                    list.update(Utils.getString("Input your Student Code: "));
+                    list.update(Inputs.getString("Input your Student Code: "));
                     break;
                 case 3:              
-                   list.display();
+                   PrintMenu.printDisplayTable();
                     break;
                 case 4:
-                    list.delete(Utils.getString("Input your Student Code: "));
+                    PrintMenu.printDeleteInfo();
                     break;
                 case 5:
                     PrintMenu.printSearchTable();
-                    //3list.search(Utils.getString("Input Your Name: "));
+                    //3list.search(Validation.getString("Input Your Name: "));
                     break;
                 case 6:
                     PrintMenu.printFilterTable();
                     
-                    String code = Utils.getCampus("Input Campus Code: ");
-                    List<Object> hey =  list.filter(code);//fix value
-                    for(Object d : hey){
-                        System.out.println(d);
-                    }
+//                    String code = Inputs.getCampus("Input Campus Code: ");
+//                    List<Object> hey =  list.filter(code);//fix value
+//                    for(Object d : hey){
+//                        System.out.println(d);
+//                    }
                     break;
                 case 7:
 //                    List<Object> stats = list.statistics();
 //                    List<MountainStatistics> mountainStatsList = stats.stream()
-//                    .map(obj -> (MountainStatistics) obj)
+//                    .map(obj -> (StatisticsInfo) obj)
 //                    .toList();
 
                     // Print table
                     PrintMenu.printStatisticsTable();
-                    List<Object> alo =  list.statistics();
-                    
-                    for(Object d : alo){
-                        System.out.println(d);
-                    }
+//                    List<Object> alo =  list.statistics();
+//                    
+//                    for(Object d : alo){
+//                        System.out.println(d);
+//                    }
                     break;
                 case 8:
                     //list.writeMountainHikingToFile(fileName);
-                    PrintMenu.printSaveFile(fileName);
+                    
+                    boolean check = menu.confirmYesNo("Do you want to save the file? (Y/N): ");
+                    if(check == true){
+                        PrintMenu.printSaveFile(fileName);
+                    }
+                    
                     break;
                 case 9:
-                    cont = menu.confirmYesNo("Do you want to quit?(Y/N)");
-                    if (cont == true) {
-                        cont = false;
-                    }
+                    cont = menu.confirmYesNo("Do you want to quit?(Y/N): ");
+//                    if (cont == true) {
+//                        cont = false;
+//                    }
+//                    else if(cont == false){
+//                        cont = true;
+//                    }
                     break;
             }
         } while (choice >= 0 && choice <= 9 && cont);
     }
 }
+

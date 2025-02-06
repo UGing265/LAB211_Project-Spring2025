@@ -6,7 +6,8 @@
 package sample.models;
 
 import java.io.Serializable;
-import sample.utils.Utils;
+import sample.utils.Inputs;
+import sample.utils.Validation;
 
 /**
  *
@@ -29,7 +30,8 @@ public class Student implements Serializable {
     @Override
     public boolean equals(Object obj) {
         Student st = (Student) obj;
-        return this.getId().equals(st.getId());
+        
+        return this.getId().equalsIgnoreCase(st.getId());
     }
 
     public Student(String id, String name, String phone, String email) {
@@ -82,8 +84,8 @@ public class Student implements Serializable {
         try {
             boolean countinous = true;
             do {
-                id = Utils.getString("Input Student ID:");
-                if (Utils.validStudentID(id)) {
+                id = Inputs.getString("Input Student ID:");
+                if (Validation.validStudentID(id)) {
                     this.setId(id);
                     countinous = false;
                 }

@@ -1,5 +1,5 @@
 
-package mountainhiking;
+package sample.main;
 
 
 

@@ -1,11 +1,10 @@
 package sample.views;
 
 import java.util.List;
-import sample.controllers.MountainHikingList;
 import sample.models.I_List;
-import sample.models.MountainStatistics;
+import sample.models.StatisticsInfo;
 import sample.models.StudentMountain;
-import sample.utils.Utils;
+import sample.utils.Inputs;
 
 public class PrintMenu {
 
@@ -21,9 +20,26 @@ public static void setList(I_List sharedList) {
         System.out.println();
     }
     
+    public static void printDeleteInfo(){
+           list.delete(Inputs.getString("Input your Student Code: "));
+    }
+    
+    public static void printDisplayTable(){
+        int num = 91;
+        rowDash(num);
+        System.out.printf("| %-16s | %-18s | %-15s | %-11s | %-15s |\n", "Student ID", "Name", "Phone", "Peak Code", "Fee" );
+        rowDash(num);
+        list.display();
+        rowDash(num);
+    }
+    
     public static void printSearchTable(){
         int num = 91;
-        List<Object> searchList = list.search(Utils.getString("Input Your Name need to find:"));
+        List<Object> searchList = list.search(Inputs.getString("Input Your Name need to find:"));
+        
+        if(searchList.isEmpty()){
+            return;
+        }
         
         // Table header
         rowDash(num);
@@ -43,7 +59,7 @@ public static void setList(I_List sharedList) {
     
     public static void printFilterTable(){
         int num = 91;
-        String code = Utils.getCampus("Input Campus Code:");
+        String code = Inputs.getCampus("Input Campus Code:");
         List<Object> fil = list.filter(code);
         if(fil.isEmpty()){
             System.out.println("No students have registered under this campus.");
@@ -81,7 +97,7 @@ public static void setList(I_List sharedList) {
         rowDash(num);
         // Table rows
         for (Object obj : stats) {
-            if (obj instanceof MountainStatistics stat) {
+            if (obj instanceof StatisticsInfo stat) {
                 System.out.printf("| %-20s | %-25d | $%-14.2f |\n",
                         stat.getPeakName(), stat.getParticipantNum(), stat.getTotalCost());
             }

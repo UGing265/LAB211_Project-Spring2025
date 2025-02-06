@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sample.controllers;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,10 +11,11 @@ import java.util.List;
 import java.util.Map;
 import sample.models.I_List;
 import sample.models.Mountain;
-import sample.models.MountainStatistics;
+import sample.models.StatisticsInfo;
 import sample.models.Student;
 import sample.models.StudentMountain;
-import sample.utils.Utils;
+import sample.utils.Inputs;
+import sample.utils.Validation;
 
 public final class MountainHikingList extends ArrayList<StudentMountain> implements I_List {
 
@@ -57,7 +52,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
 //             nhập student Name
                 //countinous = true;
                 do {
-                    String name = Utils.getString("Input Student Name:");
+                    String name = Inputs.getString("Input Student Name:");
                     if ((name.length() > 2 && name.length() < 20)) {
                         student.setName(name);
                         countinous = false;
@@ -65,16 +60,16 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
                 } while (countinous);
                 countinous = true;
                 do {
-                    phone = Utils.getString("Input Student Phone:");
-                    if (Utils.validPhone(phone)) {
+                    phone = Inputs.getString("Input Student Phone:");
+                    if (Validation.validPhone(phone)) {
                         student.setPhone(phone);
                         countinous = false;
                     }
                 } while (countinous);
                 countinous = true;
                 do {
-                    String email = Utils.getString("Input Student Email:");
-                    if (Utils.isValidEmail(email)) {
+                    String email = Inputs.getString("Input Student Email:");
+                    if (Validation.isValidEmail(email)) {
                         student.setEmail(email);
                         countinous = false;
                     }
@@ -96,7 +91,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
             boolean countinous = true;
             String mountainCode = "";
             do {
-                mountainCode = Utils.getString("Mountain code: ");
+                mountainCode = Inputs.getString("Mountain code: ");
                 if (listMountain.indexOf(new Mountain(mountainCode)) != -1) {
                     countinous = false;
 
@@ -114,7 +109,8 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
             this.add(stm);
             check = true;
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return check;
     }
 
@@ -192,12 +188,15 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
 
     @Override
     public void display() {
-        if (this != null && !this.isEmpty()) {
-            for (StudentMountain obj : this) {
-                System.out.println(obj.toString());
+        try {
+            if (this != null && !this.isEmpty()) {
+                for (StudentMountain sm : this) {
+                    System.out.printf("| %-16s | %-18s | %-15s | %-11s | %-15.2f |\n", sm.getStudent().getId(), sm.getStudent().getName(), sm.getStudent().getPhone(), sm.getMountainCode(), sm.getFee());
+                }
+            } else {
+                System.out.println("No data to display.");
             }
-        } else {
-            System.out.println("No data to display.");
+        } catch (Exception e) {
         }
     }
 
@@ -206,6 +205,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
         boolean checked = false;
         try {
             //boolean continous = false;
+            // Find students
             StudentMountain studentMountainUpdate = null;
             for (StudentMountain SM : this) {
                 if (SM.getStudent().getId().equalsIgnoreCase(value)) {
@@ -213,30 +213,31 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
                     break;
                 }
             }
-
             // If the student is found
             if (studentMountainUpdate != null) {
                 boolean continueUpdating = true;
                 while (continueUpdating) {
                     // Prompt user for new student details
-                    String newName = Utils.updateString("Enter new name (Leave empty to skip):", studentMountainUpdate.getStudent().getName());
+                    String newName = Inputs.updateString("Enter new name (Leave empty to skip):", studentMountainUpdate.getStudent().getName());
                     if (!newName.trim().isEmpty()) {
                         studentMountainUpdate.getStudent().setName(newName);
                     }
 
-                    String newPhone = Utils.updateString("Enter new phone (Leave empty to skip):", studentMountainUpdate.getStudent().getPhone());
-                    if (!newPhone.trim().isEmpty() && Utils.validPhone(newPhone)) {
+                    String newPhone = Inputs.updateString("Enter new phone (Leave empty to skip):", studentMountainUpdate.getStudent().getPhone());
+                    if (!newPhone.trim().isEmpty() && Validation.validPhone(newPhone)) {
                         studentMountainUpdate.getStudent().setPhone(newPhone);
                     }
 
-                    String newEmail = Utils.updateString("Enter new email (Leave empty to skip):", studentMountainUpdate.getStudent().getEmail());
-                    if (!newEmail.trim().isEmpty() && Utils.isValidEmail(newEmail)) {
+                    String newEmail = Inputs.updateString("Enter new email (Leave empty to skip):", studentMountainUpdate.getStudent().getEmail());
+                    if (!newEmail.trim().isEmpty() && Validation.isValidEmail(newEmail)) {
                         studentMountainUpdate.getStudent().setEmail(newEmail);
                     }
 
                     // Ask if the user wants to update another detail
-                    String updateMore = Utils.getString("Do you want to update another field? (Y/N)").toUpperCase();
-                    continueUpdating = updateMore.equals("Y");
+//                    String updateMore = Inputs.getString("Do you want to update another field? (Y/N)").toUpperCase();
+//                    continueUpdating = updateMore.equals("Y");
+                    continueUpdating = Inputs.confirmYesNo("Do you want to update another field? (Y/N): ");
+
                 }
 
                 // Save updated list to file
@@ -247,14 +248,15 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
                 System.out.println("Student with ID " + value + " not found.");
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return checked;
     }
 
     @Override
     public boolean delete(String value) {
         boolean checked = false;
-        try {
+      //  try {
             StudentMountain studentToDelete = null;
             for (StudentMountain SM : this) {
                 if (SM.getStudent().getId().equalsIgnoreCase(value)) {
@@ -265,17 +267,33 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
             // If the student is found
             if (studentToDelete != null) {
                 // Remove the student from the list
-                this.remove(studentToDelete);
-                System.out.println("Student with ID " + value + " has been deleted.");
+                
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("Student ID: "+studentToDelete.getStudent().getId());
+                System.out.println("Name: "+studentToDelete.getStudent().getName());
+                System.out.println("Phone: "+studentToDelete.getStudent().getPhone());
+                System.out.println("Mountain: "+studentToDelete.getMountainCode());
+                System.out.println("Fee: "+studentToDelete.getFee());
+                System.out.println("--------------------------------------------------------------");
+                boolean isConfirm =  Inputs.confirmYesNo("Are you sure you want to delete this registration? (Y/N): ");
+                
+                
+                
+                if(isConfirm){
+                    this.remove(studentToDelete);
+                    System.out.println("Student with ID " + value + " has been deleted.");
+                    checked = true;
+                }
 
                 // Save the updated list back to the file
                 // writeMountainHikingToFile(path);
-                checked = true;
+                
             } else {
                 System.out.println("Student with ID " + value + " not found.");
             }
 
-        } catch (Exception e) {}
+       // } catch (Exception e) {
+      //  }
 
         return checked;
     }
@@ -297,10 +315,10 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
         try {
             String searchValue = value.toLowerCase().trim();
             for (StudentMountain student : this) {
-                
+
                 String[] nameParts = student.getStudent().getName().toLowerCase().split("\\s+");
                 boolean matches = false;
-                
+
                 for (String part : nameParts) {
                     if (part.equalsIgnoreCase(searchValue)) {
                         matches = true;
@@ -315,7 +333,8 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
             if (!checked) {
                 System.out.println("No one matches the search criteria!");
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return searchList;
     }
 
@@ -329,7 +348,8 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
                     filteredList.add(student);
                 }
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return filteredList;
 
@@ -337,14 +357,14 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
 
     @Override
     public List<Object> statistics() {
-        Map<String, MountainStatistics> statsMap = new HashMap<>();
+        Map<String, StatisticsInfo> statsMap = new HashMap<>();
 
         for (StudentMountain student : this) {
             String peak = student.getMountainCode();
             double fee = student.getFee();
 
-            statsMap.putIfAbsent(peak, new MountainStatistics(peak, 0, 0.0));
-            MountainStatistics currentStats = statsMap.get(peak);
+            statsMap.putIfAbsent(peak, new StatisticsInfo(peak, 0, 0.0));
+            StatisticsInfo currentStats = statsMap.get(peak);
 
             currentStats.incrementCount();
             currentStats.addFee(fee);
