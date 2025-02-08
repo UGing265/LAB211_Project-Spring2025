@@ -6,13 +6,14 @@ import sample.models.StatisticsInfo;
 import sample.models.StudentMountain;
 import sample.utils.Inputs;
 
-public class PrintMenu {
+public class PrintTable {
 
     private static I_List list ;
     
 public static void setList(I_List sharedList) {
         list = sharedList;
     }
+
     public static void rowDash(int num){
         for(int i = 0; i < num; i++ ){
             System.out.print("-");
@@ -20,17 +21,30 @@ public static void setList(I_List sharedList) {
         System.out.println();
     }
     
+    public static void printUpdate(){
+        list.update(Inputs.getString("Input your Student Code: "));
+    }
+    
+    public static void printStudentInfo(StudentMountain sm){
+    System.out.println("--------------------------------------------------------------");
+    System.out.println("Student ID: " + sm.getStudent().getId());
+    System.out.println("Name: " + sm.getStudent().getName());
+    System.out.println("Phone: " + sm.getStudent().getPhone());
+    System.out.println("Mountain: " + sm.getMountainCode());
+    System.out.println("Fee: " + sm.getFee());
+    System.out.println("--------------------------------------------------------------");
+}
+    
     public static void printDeleteInfo(){
            list.delete(Inputs.getString("Input your Student Code: "));
     }
     
     public static void printDisplayTable(){
-        int num = 91;
-        rowDash(num);
-        System.out.printf("| %-16s | %-18s | %-15s | %-11s | %-15s |\n", "Student ID", "Name", "Phone", "Peak Code", "Fee" );
-        rowDash(num);
+        
+        
+       
         list.display();
-        rowDash(num);
+        
     }
     
     public static void printSearchTable(){

@@ -1,16 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sample.models;
-
 import java.io.Serializable;
 
-/**
- *
- * @author hoadoan
- */
 public class Mountain implements Serializable{
     private String code;
     private String name;

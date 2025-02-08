@@ -84,6 +84,75 @@ public class Inputs {
         return number;
     }
 
+    public static String getID() {
+        boolean check = true;
+        String id = "";
+        try {
+            do {
+                id = Inputs.getString("Input Student ID:");
+                if (Validation.validStudentID(id)) {
+                    String campus = id.substring(0, 2).toUpperCase();
+                    String Num6digits = id.substring(2, 8);
+                    id = campus + Num6digits;
+
+                    check = false;
+                }
+            } while (check);
+        } catch (Exception e) {
+        }
+
+        return id;
+    }
+
+    public static String getName() {
+        boolean check = true;
+        String name = "";
+        try {
+            do {
+                name = Inputs.getString("Input Student Name:");
+                if (Validation.validName(name)) {
+                    check = false;
+                } else {
+                    System.out.println("Invalid ID format");
+                }
+            } while (check);
+        } catch (Exception e) {
+        }
+
+        return name;
+    }
+
+    public static String getPhone() {
+        boolean check = true;
+        String phone = "";
+        try {
+            do {
+                phone = Inputs.getString("Input Student Phone");
+                if (Validation.validPhone(phone)) {
+                    check = false;
+                }
+            } while (check);
+        } catch (Exception e) {
+        }
+
+        return phone;
+    }
+
+    public static String getEmail() {
+        boolean check = true;
+        String email = "";
+        try {
+            do {
+                email = Inputs.getEmail();
+                if (Validation.isValidEmail(email)) {
+                    check = false;
+                }
+            } while (check);
+        } catch (Exception e) {
+        }
+        return email;
+    }
+
     public static boolean confirmYesNo(String welcome) {
         boolean check = true;
         boolean result = false;

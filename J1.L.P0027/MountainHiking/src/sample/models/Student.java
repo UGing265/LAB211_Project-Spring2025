@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sample.models;
 
 import java.io.Serializable;
-import sample.utils.Inputs;
-import sample.utils.Validation;
 
-/**
- *
- * @author hoadoan
- */
+
 public class Student implements Serializable {
 
     private String id;
@@ -30,7 +20,7 @@ public class Student implements Serializable {
     @Override
     public boolean equals(Object obj) {
         Student st = (Student) obj;
-        
+
         return this.getId().equalsIgnoreCase(st.getId());
     }
 
@@ -77,24 +67,4 @@ public class Student implements Serializable {
     public String toString() {
         return "Student{" + "id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + '}';
     }
-
-    public boolean createID() {
-        boolean check = false;
-        String id = "";
-        try {
-            boolean countinous = true;
-            do {
-                id = Inputs.getString("Input Student ID:");
-                if (Validation.validStudentID(id)) {
-                    this.setId(id);
-                    countinous = false;
-                }
-            } while (countinous);
-        } catch (Exception e) {
-        }
-
-        return check;
-    }
-    
-
 }

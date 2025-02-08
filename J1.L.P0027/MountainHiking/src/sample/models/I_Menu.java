@@ -1,9 +1,6 @@
 package sample.models;
 
-/**
- *
- * @author Hoa Doan
- */
+
 /* Interface for menu */
  public interface I_Menu {
    // add a menu item--> add text to menu

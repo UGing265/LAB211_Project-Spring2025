@@ -1,2 +1,12 @@
-1. Đọc file ghi file không đồng bộ
-2. Dự án quá lộn xộn không ra hồn sắp xếp file và logic tè le 
+Vấn đề chưa đạt yêu cầu của dự án (LAST COMMIT)
+
+Tổng quát: Dự án quá lộn xộn không ra hồn sắp xếp file và logic tè le 
+
+1. Phần Create() và Update() quá tệ quá lộn xộn giữa input và logic trồng nhau và trong logic lại có loop liên tục. Một method trong controller viết quá dài không đạt yêu cầu
+
+
+2. Chưa làm 'Nhắc nhở'
+
+3. Giữa PrintTable vs Controller nó theo hướng 2 chiều tương tác nhau. Buộc ep nó theo 1 chiều 
+
+4. xử lý file và controller de chung voi nhau  à 
