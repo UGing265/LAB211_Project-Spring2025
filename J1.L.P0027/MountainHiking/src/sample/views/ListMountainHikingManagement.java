@@ -9,7 +9,8 @@ public class ListMountainHikingManagement {
 
     public static void App() {
         int choice;
-        boolean cont = true;
+        boolean cont = false;
+        boolean a = false;
 
         String fileName = "MountainHiking.bin";
 
@@ -32,15 +33,18 @@ public class ListMountainHikingManagement {
             switch (choice) {
                 case 1:
                     list.create();
+                    a = true;
                     break;
                 case 2:
                     PrintTable.printUpdate();
+                    a = true;
                     break;
                 case 3:
                     PrintTable.printDisplayTable();
                     break;
                 case 4:
                     PrintTable.printDeleteInfo();
+                    a = true;
                     break;
                 case 5:
                     PrintTable.printSearchTable();
@@ -50,7 +54,7 @@ public class ListMountainHikingManagement {
 
                     break;
                 case 7:
-                    PrintTable.printStatisticsTable();
+                    PrintTable.printStatisticsTable(); 
                     break;
                 case 8:
                     boolean check = menu.confirmYesNo("Do you want to save the file? (Y/N): ");
@@ -59,7 +63,9 @@ public class ListMountainHikingManagement {
                     }
                     break;
                 case 9:
+                    PrintTable.printUnsaveChange(a);
                     cont = menu.confirmYesNo("Do you want to quit?(Y/N): ");
+                    a = false;
             }
         } while (choice >= 0 && choice <= 9 && !cont);
     }

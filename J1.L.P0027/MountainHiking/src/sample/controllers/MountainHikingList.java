@@ -227,10 +227,8 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
     }
 
     @Override
-    public List<Object> filter(String value
-    ) {
+    public List<Object> filter(String value) {
         List<Object> filteredList = new ArrayList();
-
         try {
             for (StudentMountain student : this) {
                 if (!student.getStudent().getId().isEmpty() && student.getStudent().getId().toUpperCase().startsWith(value.toUpperCase())) {
@@ -241,9 +239,8 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
         }
 
         return filteredList;
-
     }
-
+    
     @Override
     public List<Object> statistics() {
         Map<String, StatisticsInfo> statsMap = new HashMap<>();
@@ -278,6 +275,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
         }
     }
 
+    @Override
     public boolean writeMountainHikingToFile(String path) {
         boolean result = false;
         try {

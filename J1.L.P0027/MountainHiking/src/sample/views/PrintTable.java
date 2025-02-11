@@ -40,9 +40,6 @@ public static void setList(I_List sharedList) {
     }
     
     public static void printDisplayTable(){
-        
-        
-       
         list.display();
         
     }
@@ -126,6 +123,17 @@ public static void setList(I_List sharedList) {
             System.out.println("Registration data has been successfully saved to `MountainHiking.bin`.");
         } else{
             System.out.println("Save failed");
+        }
+    }
+    
+    public static void printUnsaveChange(boolean value){
+        boolean isCofirm;
+        String fileName = "MountainHiking.bin";
+        if(value){
+            isCofirm = Inputs.confirmYesNo("Do you want to save the changes before exiting? (Y/N): ");
+            if(isCofirm){
+                printSaveFile(fileName);
+            }          
         }
     }
 }
