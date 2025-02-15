@@ -2,8 +2,8 @@ package sample.models;
 
 import java.io.Serializable;
 
+public class StudentMountain implements Serializable {
 
-public class StudentMountain implements Serializable{
     private Student student;
     private String mountainCode;
     private double fee;
@@ -12,15 +12,18 @@ public class StudentMountain implements Serializable{
     }
 
     @Override
-public boolean equals(Object obj) {
-    if (this == obj) return true;  
-    if (obj == null || getClass() != obj.getClass()) return false;  
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
-    StudentMountain other = (StudentMountain) obj;  
+        StudentMountain other = (StudentMountain) obj;
 
-    return this.getStudent().getId().equalsIgnoreCase(other.getStudent().getId()); // Compare IDs
-}
-
+        return this.getStudent().getId().equalsIgnoreCase(other.getStudent().getId()); 
+    }
 
     public StudentMountain(Student student) {
         this.student = student;
@@ -60,5 +63,5 @@ public boolean equals(Object obj) {
     public String toString() {
         return "StudentMountain{" + "student=" + student.toString() + ", mountainCode=" + mountainCode + ", fee=" + fee + '}';
     }
-    
+
 }

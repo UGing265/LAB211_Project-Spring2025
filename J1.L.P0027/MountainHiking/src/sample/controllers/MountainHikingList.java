@@ -25,7 +25,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
     public String path = "moutainList.bin";
 
     public MountainHikingList() {
-        ReadToFile();
+            ReadToFile();
     }
 
     @Override
@@ -196,8 +196,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
     }
 
     @Override
-    public List<Object> search(String value
-    ) {
+    public List<Object> search(String value) {
         List<Object> searchList = new ArrayList();
         boolean checked = false;
         try {
@@ -264,7 +263,7 @@ public final class MountainHikingList extends ArrayList<StudentMountain> impleme
     public void ReadToFile() {
         try {
             File file = new File("MountainHiking.bin");
-            if (file.exists() && file.length() > 0) { // Ensure the file is not empty
+            if (file.exists() && file.length() > 0) { 
                 ArrayList<StudentMountain> studentList = readStudentMountainFromFile("MountainHiking.bin");
                 if (studentList != null) {
                     this.addAll(studentList);
