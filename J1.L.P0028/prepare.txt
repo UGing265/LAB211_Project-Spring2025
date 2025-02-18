@@ -1,31 +1,35 @@
 TraditionalFeastOrderManagement/
 │── src/
-│   ├── model/
+│   ├── model/          # Contains data models & interfaces
 │   │   ├── I_List.java
 │   │   ├── I_Menu.java
 │   │   ├── Customer.java
 │   │   ├── Order.java
 │   │   ├── SetMenu.java
-│   ├── dao/
+│   ├── dao/            # Handles file/database interactions
 │   │   ├── CustomerDAO.java
 │   │   ├── OrderDAO.java
 │   │   ├── SetMenuDAO.java
-│   ├── repository/
-│   │   ├── CustomerRepository.java
-│   │   ├── OrderRepository.java
-│   │   ├── SetMenuRepository.java
-│   ├── utils/
+│   ├── repository/     # Business logic layer (implements I_List)
+│   │   ├── CustomerList.java  ⬅ **Extends ArrayList<Customer>**
+│   │   ├── OrderList.java     ⬅ **Extends ArrayList<Order>**
+│   │   ├── SetMenuList.java   ⬅ **Extends ArrayList<SetMenu>**
+│   ├── utils/          # Utility classes for validation & input handling
 │   │   ├── ValidationUtils.java
 │   │   ├── FileUtils.java
 │   │   ├── InputUtils.java
-│   ├── view/
+│   ├── view/           # Handles user interaction (console UI)
 │   │   ├── MenuView.java
 │   │   ├── CustomerView.java
 │   │   ├── OrderView.java
-│   ├── controller/
+│   ├── controller/     # Processes input & calls repository methods
 │   │   ├── CustomerController.java
 │   │   ├── OrderController.java
 │   │   ├── SetMenuController.java
-│   ├── main/
+│   ├── main/           # Entry point to run the application
 │   │   ├── Main.java
-
+│── data/               # Data storage files
+│   ├── customers.dat
+│   ├── feast_order_service.dat
+│   ├── feastMenu.csv
+│── README.md

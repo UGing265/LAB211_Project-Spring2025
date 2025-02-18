@@ -2,7 +2,7 @@ package traditionalfeast.utils;
 
 import java.util.Scanner;
 
-public class Input {
+public class InputUtils {
 
     public static String getString(String welcome) {
         boolean check = true;

@@ -8,6 +8,6 @@ package traditionalfeast.utils;
  *
  * @author HP
  */
-public class Validation {
+public class ValidationUtils {
     
 }
