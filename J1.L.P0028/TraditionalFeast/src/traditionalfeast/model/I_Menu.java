@@ -1,4 +1,4 @@
-package sample.models;
+package traditionalfeast.model;
 
 
 /* Interface for menu */

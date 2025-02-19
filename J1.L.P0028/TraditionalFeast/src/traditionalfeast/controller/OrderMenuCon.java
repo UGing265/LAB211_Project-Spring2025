@@ -8,6 +8,6 @@ package traditionalfeast.controller;
  *
  * @author HP
  */
-public class OrderMenuController {
+public class OrderMenuCon {
     
 }

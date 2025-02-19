@@ -1,0 +1,5 @@
+Kế hoạch: build all function cho khách hàng và clean code ở phần input và sửa lại 1 số như tạo this. .... 
+
+Vấn Dề:
+ - valid và input tương với nhau cơ chứ không phải 1 lèo
+ - tại sao không static 1 số nơi ? khi nào nên xài static ? vậy phải sửa lại luôn phần khởi tạo controller vì muốn xài phải new object (không cần lắm) mà new r thì phải nhiều tùm lum nơi cơ

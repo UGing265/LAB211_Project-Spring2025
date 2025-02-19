@@ -1,7 +1,9 @@
 package traditionalfeast.model;
 
+import java.io.Serializable;
 
-public class Customer {
+
+public class Customer implements Serializable {
     private String customerId;
     private String Name;
     private String phoneNumber;
